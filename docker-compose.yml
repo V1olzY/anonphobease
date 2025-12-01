@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: anonphobease-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DBNAME}
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo/init:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD", "mongosh", "--username", "${MONGO_USERNAME}", "--password", "${MONGO_PASSWORD}", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./anonphobease-backend
+    container_name: anonphobease-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - CAPTCHA_SECRET_KEY=${CAPTCHA_SECRET_KEY}
+      - SERVER_PORT=${SERVER_PORT}
+      - ENCRYPTION_SECRET=${ENCRYPTION_SECRET}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+
+  frontend:
+    build:
+      context: .                            # контекст — корень проекта
+      dockerfile: ./anonphobease-frontend/Dockerfile
+    container_name: anonphobease-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+
+volumes:
+  mongo_data:

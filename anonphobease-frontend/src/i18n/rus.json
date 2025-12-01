@@ -1,0 +1,153 @@
+{
+  "login": {
+    "welcome": "Добро пожаловать в AnonPhobEase!",
+    "page": "Вход",
+    "username_placeholder": "Введите никнейм",
+    "password_placeholder": "Введите пароль",
+    "button": "Войти",
+    "required_password": "Пароль обязателен",
+    "error": "Ошибка входа"
+  },
+  "logout": "Выйти",
+
+  "chats": {
+    "page": "Чаты",
+    "title": "Все доступные чаты",
+    "filter": "Фильтр",
+    "choose_phobia": "Выберите фобию",
+    "choose_language": "Выберите язык",
+    "search": "Поиск",
+    "all": "Все"
+  },
+  "languages": {
+    "page": "Языки",
+    "name": "Язык",
+    "code": "Код"
+  },
+  "logs": {
+    "page": "Логи",
+    "subtitle": "Управляйте пользовательскими логами здесь.",
+    "time": "Время",
+    "user_id": "Пользователь",
+    "details": "Детали",
+    "related_entity_name": "Имя связанной сущности",
+    "related_entity_extra": "Доп. информация о сущности"
+  },
+  "phobias": {
+    "page": "Фобии",
+    "name": "Фобия",
+    "description": "Описание"
+  },
+  "reports": {
+    "page": "Жалобы",
+    "reported_user": "Жалоба на",
+    "reporter": "Подал жалобу",
+    "reason": "Причина",
+    "is_resolved": "Решено",
+    "created_at": "Создано",
+    "resolved_at": "Решено",
+    "resolved_by": "Решено",
+    "resolve": "Решить",
+    "unresolve": "Отменить решение",
+    "chat_name": "Название чата",
+    "filter_unresolved": "Нерешённые",
+    "filter_resolved": "Решённые",
+    "filter_all": "Все",
+    "details_title": "Детали жалобы",
+    "status_resolved": "Решено",
+    "status_unresolved": "Не решено",
+    "report_id": "ID жалобы",
+    "reported_username": "Пользователь, на которого пожаловались",
+    "reporter_username": "Пользователь, подавший жалобу",
+    "message_content": "Содержимое сообщения",
+    "action_type": "Тип действия",
+    "decision_justification": "Обоснование решения",
+    "action_ban": "Заблокировать",
+    "action_no_violation": "Нарушений нет"
+  },
+  "roles": {
+    "page": "Роли",
+    "name": "Роль"
+  },
+  "users": {
+    "page": "Пользователи",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "role": "Роль",
+    "is_active": "Активен",
+    "created_at": "Создано"
+  },
+  "unauthorized": {
+    "page": "Доступ запрещен",
+    "message": "У вас нет доступа к этой странице.",
+    "back_home": "Назад на главную"
+  },
+  "chat" : {
+    "page": "Чат",
+    "title": "Чат",
+    "send": "Отправить",
+    "message_placeholder": "Введите сообщение...",
+    "delete": "Удалить",
+    "report_reason_required": "Пожалуйста, укажите причину жалобы.",
+    "report_placeholder" : "Введите причину жалобы",
+    "report": "Пожаловаться",
+    "type_message": "Введите сообщение",
+    "bannedMessage": "Ваш аккаунт заблокирован. Вы больше не можете отправлять сообщения в чатах.",
+    "send_success": "Жалоба успешно отправлена.",
+    "send_error": "Не удалось отправить жалобу.",
+    "report_message": "Жалоба на сообщение"
+  },
+  "bans": {
+    "page": "Баны",
+    "banned_at": "Забанен",
+    "banned_user": "Заблокированный пользователь",
+    "moderator": "Модератор",
+    "user_id": "ID пользователя",
+    "chat_id": "ID чата",
+    "reason": "Причина блокировки",
+    "ban_reason": "Причина блокировки",
+    "message": "Сообщение",
+    "expires_at": "Истекает",
+    "details": "Информация о бане",
+    "empty": "Активных банов нет",
+    "unban_button": "Разбанить пользователя",
+    "chat_name": "Название чата"
+  },
+
+  "common": {
+    "yes": "Да",
+    "no": "Нет",
+    "ok": "ОК",
+    "add_new": "Добавить новый",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "save": "Сохранить",
+    "submit": "Отправить",
+    "close": "Закрыть",
+    "search_placeholder": "Поиск...",
+    "loading": "Загрузка...",
+    "actions": "Действия",
+    "delete_confirmation": "Вы уверены, что хотите удалить это?",
+    "error": {
+      "not_found": "Не найдено"
+    }
+  },
+  "phobiaNames": {
+    "AGORAPHOBIA": "Агорафобия",
+    "SOCIAL_PHOBIA": "Социофобия",
+    "ACROPHOBIA": "Акрофобия (боязнь высоты)",
+    "CLAUSTROPHOBIA": "Клаустрофобия",
+    "ARACHNOPHOBIA": "Арахнофобия",
+    "OPHIDIOPHOBIA": "Боязнь змей (офидиофобия)",
+    "AEROPHOBIA": "Аэрофобия (страх полётов)",
+    "TRYPOPHOBIA": "Трипофобия",
+    "MYSOPHOBIA": "Мизофобия (страх грязи и микробов)",
+    "HEMOPHOBIA": "Гемофобия (страх крови)",
+    "CARCINOPHOBIA": "Карцинофобия (страх рака)",
+    "THANATOPHOBIA": "Танатофобия (страх смерти)",
+    "EMETOPHOBIA": "Эметофобия (страх рвоты)",
+    "NYCTOPHOBIA": "Никтофобия (страх темноты)",
+    "GLOSSOPHOBIA": "Глоссофобия (страх публичных выступлений)"
+  }
+}

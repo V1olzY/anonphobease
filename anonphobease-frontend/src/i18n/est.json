@@ -1,0 +1,160 @@
+{
+  "login": {
+    "welcome": "Tere tulemast AnonPhobEase'i!",
+    "page": "Sisene",
+    "username_placeholder": "Sisesta hüüdnimi",
+    "password_placeholder": "Sisesta parool",
+    "button": "Logi sisse",
+    "required_password": "Parool on kohustuslik",
+    "error": "Sisselogimine ebaõnnestus"
+  },
+  "logout": "Logi välja",
+
+  "chats": {
+    "page": "Vestlused",
+    "title": "Kõik saadaval olevad vestlused",
+    "filter": "Filtreeri",
+    "choose_phobia": "Vali foobia",
+    "choose_language": "Vali keel",
+    "search": "Otsi",
+    "all": "Kõik"
+  },
+  "languages": {
+    "page": "Keeled",
+    "name": "Keel",
+    "code": "Kood"
+  },
+  "logs": {
+    "page": "Logid",
+    "subtitle": "Siin saate hallata kasutajate logisid.",
+    "time": "Aeg",
+    "user_id": "Kasutaja",
+    "details": "Detailid",
+    "related_entity_name": "Seotud üksuse nimi",
+    "related_entity_extra": "Seotud üksuse lisainfo"
+  },
+  "phobias": {
+    "page": "Foobiad",
+    "name": "Foobia",
+    "description": "Deskriptsioon"
+  },
+  "reports": {
+    "page": "Kaebused",
+    "reported_user": "Kaebatud kasutaja",
+    "reporter": "Kaebaja",
+    "reason": "Põhjus",
+    "is_resolved": "Lahendatud",
+    "created_at": "Loodud",
+    "resolved_at": "Lahendatud",
+    "resolved_by": "Lahendaja",
+    "resolve": "Lahenda",
+    "unresolve": "Tühista lahendus",
+    "chat_name": "Vestluse nimi",
+    "filter_unresolved": "Lahendamata",
+    "filter_resolved": "Lahendatud",
+    "filter_all": "Kõik",
+    "details_title": "Kaebuse detailid",
+    "status_resolved": "Lahendatud",
+    "status_unresolved": "Lahendamata",
+    "report_id": "Kaebuse ID",
+    "reported_username": "Kaebatud kasutaja nimi",
+    "reporter_username": "Kaebuse esitaja nimi",
+    "message_content": "Sõnumi sisu",
+    "action_type": "Tegevuse tüüp",
+    "decision_justification": "Otsuse põhjendus",
+    "action_ban": "Keela kasutaja",
+    "action_no_violation": "Rikkumist ei tuvastatud"
+
+  },
+  "roles": {
+    "page": "Rollid",
+    "name": "Roll"
+  },
+  "users": {
+    "page": "Kasutajad",
+    "username": "Kasutajanimi",
+    "password": "Parool",
+    "role": "Roll",
+    "is_active": "Aktiivne",
+    "created_at": "Loodud"
+  },
+  "unauthorized": {
+    "page": "Ligipääs keelatud",
+    "message": "Sul puudub sellele lehele ligipääs.",
+    "back_home": "Tagasi avalehele"
+  },
+  "chat" : {
+    "page": "Vestlus",
+    "title": "Vestlus",
+    "send_message": "Saada sõnum",
+    "message_placeholder": "Sisesta sõnum...",
+    "send": "Saada",
+    "delete_message": "Kustuta sõnum",
+    "edit_message": "Redigeeri sõnum",
+    "edit_placeholder": "Redigeeri sõnum...",
+    "delete_confirmation": "Kas olete kindel, et soovite selle sõnumi kustutada?",
+    "report_user": "Kaeba kasutaja",
+    "report_placeholder": "Sisesta kaebuse põhjus...",
+    "report": "Esita kaebus",
+    "type_message": "Sisesta sõnum",
+    "bannedMessage": "Teie konto on blokeeritud. Te ei saa enam vestlustes sõnumeid saata.",
+    "send_success": "Raport on edukalt saadetud.",
+    "send_error": "Raporti saatmine ebaõnnestus.",
+    "report_reason_required": "Palun kirjelda raporti põhjust.",
+    "report_message": "Teata sõnumist"
+
+  },
+  "bans": {
+    "page": "Keelud",
+    "banned_at": "Keeld lisatud",
+    "banned_user": "Keelu saanud kasutaja",
+    "moderator": "Moderaator",
+    "user_id": "Kasutaja ID",
+    "chat_id": "Vestluse ID",
+    "reason": "Põhjus",
+    "ban_reason": "Keelu põhjus",
+    "message": "Sõnum",
+    "expires_at": "Kehtib kuni",
+    "details": "Keelu info",
+    "empty": "Keelde ei ole",
+    "unban_button": "Eemalda keeld",
+    "chat_name": "Vestluse nimi"
+  },
+
+  "common" : {
+    "yes": "Jah",
+    "no": "Ei",
+    "ok": "OK",
+    "add_new": "Lisa uus",
+    "cancel": "Tühista",
+    "delete": "Kustuta",
+    "edit": "Redigeeri",
+    "save": "Salvesta",
+    "submit": "Esita",
+    "close": "Sule",
+    "search_placeholder": "Otsi...",
+    "loading": "Laeb...",
+    "actions": "Tegevused",
+    "delete_confirmation": "Kas olete kindel, et soovite selle kustutada?",
+    "error": {
+      "not_found": "Lehte ei leitud"
+    }
+  },
+  "phobiaNames": {
+    "AGORAPHOBIA": "Agorafoobia",
+    "SOCIAL_PHOBIA": "Sotsiaalfoobia",
+    "ACROPHOBIA": "Kõrgusekartus",
+    "CLAUSTROPHOBIA": "Klaustrofoobia",
+    "ARACHNOPHOBIA": "Arahnofoobia",
+    "OPHIDIOPHOBIA": "Maofoobia",
+    "AEROPHOBIA": "Lennuhirm (aerofoobia)",
+    "TRYPOPHOBIA": "Tripoboobia",
+    "MYSOPHOBIA": "Müsofoobia (mustuse ja pisikute hirm)",
+    "HEMOPHOBIA": "Verehirm (hemofoobia)",
+    "CARCINOPHOBIA": "Vähihirm (kartsinofoobia)",
+    "THANATOPHOBIA": "Surmahirm (tanatofoobia)",
+    "EMETOPHOBIA": "Oksendamise hirm (emetofoobia)",
+    "NYCTOPHOBIA": "Pimedusehirm (nüktofoobia)",
+    "GLOSSOPHOBIA": "Esinemishirm (glossofoobia)"
+  }
+}

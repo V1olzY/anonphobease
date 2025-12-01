@@ -1,0 +1,39 @@
+# General insults / mild profanity
+idiot
+stupid
+moron
+bastard
+jerk
+loser
+dumb
+freak
+
+# Stronger profanity (sanitize as needed for your project)
+fuck
+shit
+bullshit
+asshole
+bitch
+
+# Hate / discrimination (be careful and maintain according to local rules)
+racist
+nazi
+terrorist
+retard
+cripple
+
+# Violence / self-harm / crime related terms
+kill
+murder
+suicide
+self-harm
+self harm
+cut myself
+hang myself
+shoot myself
+bomb
+explosion
+massacre
+school shooting
+terror attack
+terrorist attack

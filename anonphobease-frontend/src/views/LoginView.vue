@@ -1,0 +1,178 @@
+<template>
+  <div class="login-wrapper">
+    <div class="login-box">
+      <h1>{{ $t("login.welcome") }}</h1>
+      <h2>{{ $t("login.page") }}</h2>
+
+      <input
+        v-model="username"
+        :placeholder="$t('login.username_placeholder')"
+        @blur="checkUsername"
+        @keyup.enter="checkUsername"
+      />
+
+      <input
+        v-if="requiresPassword"
+        type="password"
+        v-model="password"
+        :placeholder="$t('login.password_placeholder')"
+        @keyup.enter="handleLogin"
+        ref="passwordInput"
+      />
+
+            <RecaptchaV2 @load-callback="onCaptchaVerified" />
+
+      <button @click="handleLogin">{{ $t("login.button") }}</button>
+
+      <p v-if="error" class="error-text">{{ error }}</p>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { defineAsyncComponent, ref, watch, nextTick } from "vue";
+import axios from "@/api/axiosInstance";
+import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { RecaptchaV2 } from "vue3-recaptcha-v2";
+
+const username = ref("");
+const password = ref("");
+const requiresPassword = ref(false);
+const error = ref("");
+const captchaToken = ref("");
+const recaptchaRef = ref();
+const authStore = useAuthStore();
+const router = useRouter();
+const { t } = useI18n();
+
+const passwordInput = ref<HTMLInputElement | null>(null);
+
+watch(requiresPassword, async (val) => {
+  if (val) {
+    await nextTick();
+    passwordInput.value?.focus();
+  }
+});
+
+function onCaptchaVerified(token: string) {
+  captchaToken.value = token;
+}
+
+async function checkUsername() {
+  if (!username.value.trim()) return;
+  try {
+    const res = await axios.get("/v1/auth/check", {
+      params: { nickname: username.value },
+    });
+    requiresPassword.value = res.data.requiresPassword;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function handleLogin() {
+  if (!username.value.trim()) return;
+  // if (!captchaToken.value) {
+  //   error.value = "Please validate that you are not a robot.";
+  //   return;
+  // }
+
+  try {
+    const params: any = {
+      username: username.value,
+      // captcha: captchaToken.value,
+    };
+
+    if (requiresPassword.value) {
+      if (!password.value.trim()) {
+        error.value = t("login.required_password");
+        return;
+      }
+      params.password = password.value;
+    }
+
+    const res = await axios.post("/v1/auth/login", params);
+    const {
+      token,
+      username: uname,
+      role,
+      userId,
+      roleId,
+      isActive,
+      createdAt,
+    } = res.data;
+
+    authStore.login(
+      {
+        id: userId,
+        username: uname,
+        role: { id: roleId, name: role },
+        isActive: isActive,
+        createdAt: createdAt,
+      },
+      token
+    );
+
+    await router.push(
+      role === "ADMIN" ? "/users" : role === "MODERATOR" ? "/reports" : "/chats"
+    );
+  } catch (err: any) {
+    error.value = err.response?.data || t("login.error");
+  } finally {
+    recaptchaRef.value?.reset();
+  }
+}
+</script>
+
+<style scoped>
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  background-color: #f5f5f5;
+}
+
+.login-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background-color: #0056b3;
+}
+
+.error-text {
+  color: red;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+</style>

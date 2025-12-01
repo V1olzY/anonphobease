@@ -1,0 +1,158 @@
+{
+  "login": {
+    "welcome": "Welcome to the AnonPhobEase!",
+    "page": "Login",
+    "username_placeholder": "Enter nickname",
+    "password_placeholder": "Enter password",
+    "button": "Login",
+    "required_password": "Password is required",
+    "error": "Login failed"
+  },
+  "logout": "Logout",
+
+  "chats": {
+    "page": "Chats",
+    "title": "All Available Chats",
+    "filter": "Filter",
+    "choose_phobia": "Choose Phobia",
+    "choose_language": "Choose Language",
+    "search": "Search",
+    "all": "All"
+  },
+  "languages": {
+    "page": "Languages",
+    "name": "Language",
+    "code": "Code"
+  },
+  "logs": {
+    "page": "Logs",
+    "subtitle": "Manage user logs here.",
+    "time": "Time",
+    "user_id": "User",
+    "details": "Details",
+    "related_entity_name": "Related Entity Name",
+    "related_entity_extra": "Related Entity Extra"
+  },
+  "phobias": {
+    "page": "Phobias",
+    "name": "Phobia",
+    "description": "Description"
+  },
+  "reports": {
+    "page": "Reports",
+    "reported_user": "Reported User",
+    "reporter": "Reporter",
+    "reason": "Reason",
+    "is_resolved": "Resolved",
+    "created_at": "Created At",
+    "resolved_at": "Resolved At",
+    "resolved_by": "Resolved By",
+    "resolve": "Resolve",
+    "unresolve": "Unresolve",
+    "chat_name": "Chat Name",
+    "filter_unresolved": "Unresolved",
+    "filter_resolved": "Resolved",
+    "filter_all": "All",
+    "details_title": "Report Details",
+    "status_resolved": "Resolved",
+    "status_unresolved": "Unresolved",
+    "report_id": "Report ID",
+    "reported_username": "Reported Username",
+    "reporter_username": "Reporter Username",
+    "message_content": "Message Content",
+    "action_type": "Action Type",
+    "decision_justification": "Decision Justification",
+    "action_ban": "Ban",
+    "action_no_violation": "No Violation"
+  },
+  "roles": {
+    "page": "Roles",
+    "name": "Role"
+
+  },
+  "users": {
+    "page": "Users",
+    "username": "Username",
+    "role": "Role",
+    "password": "Password",
+    "is_active": "Active",
+    "created_at": "Created At"
+  },
+  "unauthorized": {
+    "page": "Access Denied",
+    "message": "You do not have access to this page.",
+    "back_home": "Back to home page"
+  },
+  "chat" : {
+    "page": "Chat",
+    "title": "Chat with {{name}}",
+    "send_message": "Send Message",
+    "message_placeholder": "Type your message here...",
+    "send": "Send",
+    "delete_message": "Delete Message",
+    "delete_confirmation": "Are you sure you want to delete this message?",
+    "report_message": "Report Message",
+    "report_placeholder": "Enter the reason for reporting this message",
+    "report": "Report",
+    "type_message": "Type a message",
+    "bannedMessage": "Your account is blocked. You can no longer send messages in chats.",
+    "send_success": "Report has been sent successfully.",
+    "send_error": "Failed to send the report.",
+    "report_reason_required": "Please provide a reason for the report."
+
+  },
+  "bans": {
+    "page": "Bans",
+    "banned_at": "Banned at",
+    "banned_user": "Banned user",
+    "moderator": "Moderator",
+    "user_id": "User ID",
+    "chat_id": "Chat ID",
+    "reason": "Reason",
+    "ban_reason": "Ban reason",
+    "message": "Message",
+    "expires_at": "Expires at",
+    "details": "Ban details",
+    "empty": "No bans found",
+    "unban_button": "Unban user",
+    "chat_name": "Chat Name"
+  },
+  "common" : {
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "add_new": "Add New",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close",
+    "submit": "Submit",
+    "search_placeholder": "Search...",
+    "loading": "Loading...",
+    "actions": "Actions",
+    "delete_confirmation": "Are you sure you want to delete this?",
+    "error": {
+      "not_found": "Not Found",
+      "server_error": "Server Error"
+    }
+  },
+  "phobiaNames": {
+    "AGORAPHOBIA": "Agoraphobia",
+    "SOCIAL_PHOBIA": "Social phobia",
+    "ACROPHOBIA": "Acrophobia",
+    "CLAUSTROPHOBIA": "Claustrophobia",
+    "ARACHNOPHOBIA": "Arachnophobia",
+    "OPHIDIOPHOBIA": "Ophidiophobia (fear of snakes)",
+    "AEROPHOBIA": "Aerophobia (fear of flying)",
+    "TRYPOPHOBIA": "Trypophobia",
+    "MYSOPHOBIA": "Mysophobia (fear of germs)",
+    "HEMOPHOBIA": "Hemophobia (fear of blood)",
+    "CARCINOPHOBIA": "Carcinophobia (fear of cancer)",
+    "THANATOPHOBIA": "Thanatophobia (fear of death)",
+    "EMETOPHOBIA": "Emetophobia (fear of vomiting)",
+    "NYCTOPHOBIA": "Nyctophobia (fear of the dark)",
+    "GLOSSOPHOBIA": "Glossophobia (fear of public speaking)"
+  }
+
+}
