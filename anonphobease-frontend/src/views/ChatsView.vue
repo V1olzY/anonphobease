@@ -22,6 +22,7 @@
 
     <div class="chat-list">
       <h2>{{ $t("chats.title") }}</h2>
+
       <router-link
         v-for="chat in filteredChats"
         :key="chat.id"
@@ -41,13 +42,7 @@ import ChatCard from "@/components/chat/ChatCard.vue";
 import type { Chat } from "@/types/Chat";
 import type { Phobia } from "@/types/Phobia";
 import type { Language } from "@/types/Language";
-import type { ChatDTO } from "@/types/ChatDTO";
-
-interface ChatsResponse {
-  chats: ChatDTO[];
-  phobias: Phobia[];
-  languages: Language[];
-}
+import { ChatsResponse } from "@/types/ChatRsponse";
 
 const chats = ref<Chat[]>([]);
 const phobias = ref<Phobia[]>([]);
@@ -65,6 +60,7 @@ onMounted(async () => {
     phobia: {
       id: dto.phobiaId,
       name: dto.phobiaName,
+      description: "",
     },
     language: {
       id: dto.languageId,
@@ -100,7 +96,7 @@ const filteredChats = computed<Chat[]>(() => {
 
 .sidebar {
   width: 250px;
-  background: #a3c8a3;
+  background: var(--panel-teal);
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
@@ -110,22 +106,78 @@ const filteredChats = computed<Chat[]>(() => {
 
 .chat-list {
   flex: 1;
-  background: #bccdfc;
+  background: var(--panel-blue);
   padding: 2rem;
   border-radius: 1rem;
 }
 
-.chat-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
+.chat-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 12px;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 
-.flag {
-  width: 30px;
+.chat-link:visited {
+  color: inherit;
+}
+
+.chat-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(17, 24, 39, 0.1);
+}
+
+.chat-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.22);
+}
+
+@media (max-width: 768px) {
+  .chat-page {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .sidebar,
+  .chat-list {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .sidebar h2,
+  .chat-list h2 {
+    margin: 0 0 12px 0;
+  }
+
+  .sidebar label {
+    margin-top: 8px;
+  }
+
+  .sidebar select {
+    width: 100%;
+  }
+
+  .chat-link {
+    margin-bottom: 12px;
+  }
+
+  .chat-link:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar,
+  .chat-list {
+    border-radius: 10px;
+  }
+
+  .chat-link {
+    margin-bottom: 0.75rem;
+  }
 }
 </style>

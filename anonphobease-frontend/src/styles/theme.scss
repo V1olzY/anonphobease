@@ -1,0 +1,77 @@
+:root {
+  --color-bg: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-border: #d9dee7;
+  --color-muted-bg: #f3f4f6;
+
+  --color-text: #111827;
+  --color-muted: #6b7280;
+
+  --color-primary: #2f6fed;
+  --color-primary-hover: #2559c8;
+
+  --color-secondary: #2aae9a;
+  --color-danger: #d64545;
+  --color-danger-hover: #b93a3a;
+
+  --panel-blue: #eef2ff;
+  --panel-teal: #eef6f3;
+  --color-neutral-btn: #e5e7eb;
+  --color-neutral-btn-hover: #d1d5db;
+  --color-neutral-text: #111827;
+  --status-success-bg: #eaf7ee;
+  --status-success-text: #1f7a3a;
+
+  --status-danger-bg: #fdecee;
+  --status-danger-text: #b42318;
+
+  --status-warning-bg: #fff7e6;
+  --status-warning-text: #8a5a00;
+
+  --status-info-bg: #eff6ff;
+  --status-info-text: #2f6fed;
+
+  --btn-radius: 10px;
+  --btn-padding-y: 0.55rem;
+  --btn-padding-x: 1.1rem;
+
+  --btn-font-weight: 600;
+
+  --btn-primary-bg: var(--color-primary);
+  --btn-primary-bg-hover: var(--color-primary-hover);
+  --btn-primary-text: #fff;
+
+  --btn-danger-bg: var(--color-danger);
+  --btn-danger-bg-hover: var(--color-danger-hover);
+  --btn-danger-text: #fff;
+
+  --btn-neutral-bg: #E5E7EB;
+  --btn-neutral-bg-hover: #D1D5DB;
+  --btn-neutral-text: var(--color-text);
+
+  --nav-bg: var(--color-surface);
+  --nav-border: var(--color-border);
+  --nav-link: var(--color-text);
+  --nav-link-hover-bg: var(--color-muted-bg);
+  --nav-link-active: var(--color-primary);
+}
+
+html, body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text);
+  background: var(--color-bg);
+  --page-pad: 16px;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+
+
+
+
+
+

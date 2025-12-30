@@ -39,7 +39,8 @@
     "tests/**/*.tsx",
     "node_modules/@types/node/buffer.d.ts",
     "node_modules/@types/node/buffer.d.ts",
-    "node_modules/@types/node/buffer.d.ts"
+    "node_modules/@types/node/buffer.d.ts",
+    "node_modules/highlight.js/types/index.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,7 +1,8 @@
 <template>
   <div class="logs-view">
     <h1>{{ $t("logs.page") }}</h1>
-    <table>
+
+    <table class="table logs-table">
       <thead>
         <tr>
           <th>{{ $t("logs.time") }}</th>
@@ -11,15 +12,32 @@
           <th>{{ $t("logs.related_entity_extra") }}</th>
         </tr>
       </thead>
+
       <tbody>
         <tr v-for="log in logs" :key="log.id">
-          <td>{{ formatDate(log.createdAt) }}</td>
-          <td class="clickable" @click="goToUserLogs(log.userId)">
-            {{ log.userName }}
+          <td :data-label="$t('logs.time')">
+            <span class="cell-value">{{ formatDate(log.createdAt) }}</span>
           </td>
-          <td>{{ log.details }}</td>
-          <td>{{ log.relatedEntityName }}</td>
-          <td>{{ log.relatedEntityExtra }}</td>
+
+          <td :data-label="$t('logs.user_id')">
+            <span class="cell-value">
+              <span class="clickable" @click="goToUserLogs(log.userId)">
+                {{ log.userName }}
+              </span>
+            </span>
+          </td>
+
+          <td :data-label="$t('logs.details')">
+            <span class="cell-value">{{ log.details }}</span>
+          </td>
+
+          <td :data-label="$t('logs.related_entity_name')">
+            <span class="cell-value">{{ log.relatedEntityName }}</span>
+          </td>
+
+          <td :data-label="$t('logs.related_entity_extra')">
+            <span class="cell-value">{{ log.relatedEntityExtra }}</span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -52,21 +70,41 @@ onMounted(() => {
 });
 </script>
 <style scoped lang="scss">
-table {
-  width: 100%;
-  border-collapse: collapse;
-  th,
-  td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  th {
-    background: #f5f5f5;
-  }
-}
 .clickable {
   color: #1976d2;
   cursor: pointer;
   text-decoration: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .logs-table thead {
+    display: none;
+  }
+
+  .logs-table tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 8px 10px;
+  }
+
+  .logs-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    padding: 8px 0;
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  .logs-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-muted);
+    min-width: 42%;
+  }
 }
 </style>

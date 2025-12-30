@@ -4,10 +4,9 @@
       <h2>{{ $t("phobias.page") }}</h2>
       <button @click="openModal()">{{ $t("common.add_new") }}</button>
     </div>
-    <table>
+    <table class="table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>{{ $t("phobias.name") }}</th>
           <th>{{ $t("phobias.description") }}</th>
           <th>{{ $t("common.actions") }}</th>
@@ -20,11 +19,12 @@
           @click="openModal(phobia)"
           class="clickable-row"
         >
-          <td>{{ phobia.id }}</td>
           <td>{{ phobia.name }}</td>
           <td>{{ phobia.description }}</td>
           <td>
-            <button @click.stop="deletePhobia(phobia.id)">❌</button>
+            <button class="icon-button" @click.stop="deletePhobia(phobia.id)">
+              ❌
+            </button>
           </td>
         </tr>
       </tbody>
@@ -32,7 +32,7 @@
 
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
-        <h3>{{ editingPhobia ? $t("common.edit") : $t("common.add") }}</h3>
+        <h3>{{ editingPhobia ? $t("common.edit") : $t("common.add_new") }}</h3>
 
         <label>{{ $t("phobias.name") }}</label>
         <input v-model="phobiaName" />
@@ -113,15 +113,7 @@ onMounted(fetchPhobias);
   align-items: center;
   margin-bottom: 1rem;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
+
 .clickable-row {
   cursor: pointer;
   transition: background 0.2s;

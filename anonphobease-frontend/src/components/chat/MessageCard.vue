@@ -4,7 +4,7 @@
       <span :class="['username', getRoleClass(role)]">{{ username }}</span>
       <button
         v-if="!isSelf && role === 'USER'"
-        class="report-button"
+        class="report-button btn--icon"
         @click="onReport"
       >
         🚩
@@ -51,16 +51,17 @@ const getRoleClass = (role?: string) => {
   align-items: center;
   margin-bottom: 6px;
   gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .username.admin {
-  color: #d7263d;
+  color: var(--color-danger);
 }
 .username.moderator {
-  color: #1e90ff;
+  color: var(--color-primary);
 }
 .username.user {
-  color: #222;
+  color: var(--color-text);
 }
 
 .username {
@@ -80,7 +81,7 @@ const getRoleClass = (role?: string) => {
 }
 
 .report-button:hover {
-  background-color: #eee;
+  background-color: var(--color-muted-bg);
 }
 
 .message-content {
@@ -88,7 +89,7 @@ const getRoleClass = (role?: string) => {
 }
 
 .self {
-  --bg-color: #d4f4dd;
+  --bg-color: #e3f2fd;
   border-color: #9ddfaa;
 }
 

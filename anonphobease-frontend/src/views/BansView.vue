@@ -2,7 +2,7 @@
   <div class="bans-view">
     <h1>{{ $t("bans.page") }}</h1>
 
-    <table class="bans-table">
+    <table class="table bans-table">
       <thead>
         <tr>
           <th>{{ $t("bans.banned_at") }}</th>
@@ -12,6 +12,7 @@
           <th>{{ $t("bans.chat_name") }}</th>
         </tr>
       </thead>
+
       <tbody>
         <tr
           v-for="ban in bans"
@@ -19,12 +20,29 @@
           class="clickable-row"
           @click="openModal(ban)"
         >
-          <td>{{ formatDate(ban.bannedAt) }}</td>
-          <td>{{ ban.username || ban.userId }}</td>
-          <td>{{ ban.moderatorName || ban.moderatorId }}</td>
-          <td>{{ ban.banReason }}</td>
-          <td>{{ ban.chatName || "-" }}</td>
+          <td :data-label="$t('bans.banned_at')">
+            <span class="cell-value">{{ formatDate(ban.bannedAt) }}</span>
+          </td>
+
+          <td :data-label="$t('bans.banned_user')">
+            <span class="cell-value">{{ ban.username || ban.userId }}</span>
+          </td>
+
+          <td :data-label="$t('bans.moderator')">
+            <span class="cell-value">{{
+              ban.moderatorName || ban.moderatorId
+            }}</span>
+          </td>
+
+          <td :data-label="$t('bans.reason')">
+            <span class="cell-value">{{ ban.banReason }}</span>
+          </td>
+
+          <td :data-label="$t('bans.chat_name')">
+            <span class="cell-value">{{ ban.chatName || "-" }}</span>
+          </td>
         </tr>
+
         <tr v-if="!bans.length">
           <td colspan="5" class="empty-cell">
             {{ $t("bans.empty") }}
@@ -32,7 +50,6 @@
         </tr>
       </tbody>
     </table>
-
     <BanModal
       v-if="showModal && selectedBan"
       :ban="selectedBan"
@@ -91,23 +108,6 @@ onMounted(fetchBans);
   padding: 1.5rem;
 }
 
-.bans-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.bans-table th,
-.bans-table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem 0.75rem;
-  text-align: left;
-}
-
-.bans-table th {
-  background-color: #f4f4f4;
-  font-weight: 600;
-}
-
 .clickable-row {
   cursor: pointer;
 }
@@ -120,5 +120,37 @@ onMounted(fetchBans);
   text-align: center;
   padding: 1rem;
   font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .bans-table thead {
+    display: none;
+  }
+
+  .bans-table tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 8px 10px;
+  }
+
+  .bans-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    padding: 8px 0;
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  .bans-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-muted);
+    min-width: 42%;
+  }
 }
 </style>

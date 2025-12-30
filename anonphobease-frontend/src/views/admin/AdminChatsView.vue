@@ -7,7 +7,7 @@
       </button>
     </div>
 
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>{{ $t("languages.page") }}</th>
@@ -17,11 +17,11 @@
       </thead>
       <tbody>
         <tr v-for="chat in chats" :key="chat.id" @click="openModal(chat)">
-          <td>{{ chat.language.name }}</td>
-          <td>{{ chat.phobia.name }}</td>
+          <td>{{ chat.language.name || "-" }}</td>
+          <td>{{ chat.phobia.name || "-" }}</td>
           <td class="actions-cell" @click.stop>
-            <button @click="goToChat(chat.id)">🔗</button>
-            <button @click="deleteChat(chat.id)">❌</button>
+            <button class="icon-button" @click="goToChat(chat.id)">🔗</button>
+            <button class="icon-button" @click="deleteChat(chat.id)">❌</button>
           </td>
         </tr>
       </tbody>
@@ -29,7 +29,7 @@
 
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
-        <h3>{{ editingChat ? $t("common.edit") : $t("common.add") }}</h3>
+        <h3>{{ editingChat ? $t("common.edit") : $t("common.add_new") }}</h3>
 
         <label>{{ $t("languages.name") }}</label>
         <select v-model="selectedLanguage">
@@ -66,6 +66,7 @@ import axios from "@/api/axiosInstance";
 import type { Chat } from "@/types/Chat";
 import type { Language } from "@/types/Language";
 import type { Phobia } from "@/types/Phobia";
+import { ChatsResponse } from "@/types/ChatRsponse";
 
 const router = useRouter();
 
@@ -79,15 +80,24 @@ const selectedLanguage = ref<string>("");
 const selectedPhobia = ref<string>("");
 
 async function fetchData() {
-  const [chatsRes, langsRes, phobiasRes] = await Promise.all([
-    axios.get<Chat[]>("/v1/chats/admin"),
-    axios.get<Language[]>("/v1/languages"),
-    axios.get<Phobia[]>("/v1/phobias"),
-  ]);
+  const response = await axios.get<ChatsResponse>("/v1/chats");
 
-  chats.value = chatsRes.data;
-  languages.value = langsRes.data;
-  phobias.value = phobiasRes.data;
+  chats.value = response.data.chats.map((dto) => ({
+    id: dto.id,
+    name: dto.chatName,
+    phobia: {
+      id: dto.phobiaId,
+      name: dto.phobiaName,
+      description: "",
+    },
+    language: {
+      id: dto.languageId,
+      name: dto.languageName,
+      code: dto.languageCode,
+    },
+  }));
+  languages.value = response.data.languages;
+  phobias.value = response.data.phobias;
 }
 
 function openModal(chat: Chat | null) {
@@ -148,23 +158,6 @@ onMounted(fetchData);
 
 .add-btn {
   padding: 0.5rem 1rem;
-}
-
-table {
-  width: 100%;
-  margin-top: 1rem;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-}
-
-tr:hover {
-  background-color: #eef;
-  cursor: pointer;
 }
 
 .actions-cell {

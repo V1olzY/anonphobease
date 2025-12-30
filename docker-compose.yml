@@ -36,6 +36,8 @@ services:
       - CAPTCHA_SECRET_KEY=${CAPTCHA_SECRET_KEY}
       - SERVER_PORT=${SERVER_PORT}
       - ENCRYPTION_SECRET=${ENCRYPTION_SECRET}
+      - APP_ADMIN_USERNAME=${APP_ADMIN_USERNAME}
+      - APP_ADMIN_PASSWORD=${APP_ADMIN_PASSWORD}
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
 
@@ -49,6 +51,20 @@ services:
       - backend
     ports:
       - "8080:80"
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/html:/var/www/html
+      - ./nginx/certbot:/etc/letsencrypt
+    depends_on:
+      - backend
+      - frontend
+
 
 
 volumes:

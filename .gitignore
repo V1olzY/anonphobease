@@ -9,6 +9,7 @@ dist
 .env
 logs
 mongo_data
+nginx/certbot/
 
 # === Docker ===
 *.pid

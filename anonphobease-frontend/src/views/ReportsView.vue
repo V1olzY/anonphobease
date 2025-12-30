@@ -1,50 +1,73 @@
 <template>
   <div class="reports-view">
-    <h1>{{ $t("reports.page") }}</h1>
-    <div class="filter-container">
-      <label for="report-filter" class="filter-label">Filter:</label>
-      <select id="report-filter" v-model="filter" class="filter-select">
-        <option value="unresolved">
-          {{ $t("reports.filter_unresolved") }}
-        </option>
-        <option value="resolved">
-          {{ $t("reports.filter_resolved") }}
-        </option>
-        <option value="all">
-          {{ $t("reports.filter_all") }}
-        </option>
-      </select>
+    <div class="header-row">
+      <h1>{{ $t("reports.page") }}</h1>
+
+      <div class="filter-container">
+        <label for="report-filter" class="filter-label">Filter:</label>
+        <select id="report-filter" v-model="filter">
+          <option value="unresolved">
+            {{ $t("reports.filter_unresolved") }}
+          </option>
+          <option value="resolved">
+            {{ $t("reports.filter_resolved") }}
+          </option>
+          <option value="all">
+            {{ $t("reports.filter_all") }}
+          </option>
+        </select>
+      </div>
     </div>
-    <table class="reports-table">
-      <thead>
-        <tr>
-          <th>{{ $t("reports.created_at") }}</th>
-          <th>{{ $t("reports.chat_name") }}</th>
-          <th>{{ $t("reports.reported_user") }}</th>
-          <th>{{ $t("reports.reporter") }}</th>
-          <th>{{ $t("reports.reason") }}</th>
-          <th>{{ $t("reports.is_resolved") }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="report in filteredReports"
-          :key="report.id"
-          @click="openModal(report)"
-          :class="{ clickable: !report.isResolved }"
-        >
-          <td>{{ formatDate(report.createdAt) }}</td>
-          <td>{{ report.chatName }}</td>
-          <td>{{ report.reportedUsername }}</td>
-          <td>{{ report.reporterUsername }}</td>
-          <td>{{ report.reason }}</td>
-          <td>
-            <span v-if="report.isResolved" class="resolved-icon">✔</span>
-            <span v-else class="unresolved-icon">✘</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="table-responsive">
+      <table class="table reports-table">
+        <thead>
+          <tr>
+            <th>{{ $t("reports.created_at") }}</th>
+            <th>{{ $t("reports.chat_name") }}</th>
+            <th>{{ $t("reports.reported_user") }}</th>
+            <th>{{ $t("reports.reporter") }}</th>
+            <th>{{ $t("reports.reason") }}</th>
+            <th>{{ $t("reports.is_resolved") }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="report in filteredReports"
+            :key="report.id"
+            @click="openModal(report)"
+            :class="{ clickable: !report.isResolved }"
+          >
+            <td :data-label="$t('reports.created_at')">
+              {{ formatDate(report.createdAt) }}
+            </td>
+
+            <td :data-label="$t('reports.chat_name')">
+              {{ report.chatName }}
+            </td>
+
+            <td :data-label="$t('reports.reported_user')">
+              {{ report.reportedUsername }}
+            </td>
+
+            <td :data-label="$t('reports.reporter')">
+              {{ report.reporterUsername }}
+            </td>
+
+            <td :data-label="$t('reports.reason')">
+              {{ report.reason }}
+            </td>
+
+            <td :data-label="$t('reports.is_resolved')">
+              <span v-if="report.isResolved" class="resolved-icon">✔</span>
+              <span v-else class="unresolved-icon">✘</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <ReportModal
       v-if="showModal"
       :report="selectedReport"
@@ -70,15 +93,15 @@ const showModal = ref(false);
 const selectedReport = ref<Report | null>(null);
 const authStore = useAuthStore();
 const filter = ref<"all" | "resolved" | "unresolved">("unresolved");
+
 const filteredReports = computed(() => {
-  if (filter.value === "resolved") {
+  if (filter.value === "resolved")
     return reports.value.filter((r) => r.isResolved);
-  }
-  if (filter.value === "unresolved") {
+  if (filter.value === "unresolved")
     return reports.value.filter((r) => !r.isResolved);
-  }
   return reports.value;
 });
+
 async function fetchReports() {
   try {
     const response = await axios.get("/v1/reports");
@@ -100,13 +123,15 @@ function closeModal() {
 
 function updateReportAfterAction(responseData: any) {
   if (!selectedReport.value) return;
+
   selectedReport.value.isResolved = true;
   selectedReport.value.actionReason = responseData.actionReason;
   selectedReport.value.moderatorId = responseData.moderatorId;
   selectedReport.value.actionTaken = responseData.actionTaken;
   selectedReport.value.resolvedAt = responseData.resolvedAt;
+
   const idx = reports.value.findIndex((r) => r.id === selectedReport.value?.id);
-  if (idx !== -1 && selectedReport.value) {
+  if (idx !== -1) {
     reports.value[idx] = { ...selectedReport.value };
   }
 }
@@ -123,12 +148,14 @@ async function handleBan(payload: { actionReason: string }) {
       `/v1/reports/${selectedReport.value.id}/ban`,
       reportActionRequest
     );
+
     updateReportAfterAction(response.data);
     closeModal();
   } catch (error) {
     console.error("Failed to ban user:", error);
   }
 }
+
 async function noViolation(payload: { actionReason: string }) {
   if (!selectedReport.value) return;
   try {
@@ -136,10 +163,12 @@ async function noViolation(payload: { actionReason: string }) {
       actionReason: payload.actionReason,
       moderatorId: authStore.user?.id || "",
     };
+
     const response = await axios.post(
       `/v1/reports/${selectedReport.value.id}/no-violation`,
       reportActionRequest
     );
+
     updateReportAfterAction(response.data);
     closeModal();
   } catch (error) {
@@ -151,78 +180,92 @@ onMounted(fetchReports);
 </script>
 
 <style scoped>
-.reports-table {
-  width: 100%;
-  border-collapse: collapse;
+.reports-view {
+  padding: 2rem;
 }
 
-.reports-table th,
-.reports-table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: left;
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.reports-table th {
-  background-color: #f4f4f4;
-}
-
-button {
-  padding: 0.3rem 0.6rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.resolved-icon {
-  color: green;
-  font-size: 1.2rem;
-}
-
-.unresolved-icon {
-  color: red;
-  font-size: 1.2rem;
-}
-.clickable {
-  cursor: pointer;
-  background-color: #f9f9f9;
-}
-.clickable:hover {
-  background-color: #e6f0ff;
-}
 .filter-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  margin-right: 1rem;
-  justify-content: flex-end;
 }
 
 .filter-label {
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
-.filter-select {
-  padding: 0.4rem 1.2rem 0.4rem 0.6rem;
-  border: 1px solid #b0b0b0;
-  border-radius: 6px;
-  background: #f8fafd;
-  color: #222;
-  font-size: 1rem;
-  transition: border 0.2s;
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.filter-select:focus {
-  border-color: #007bff;
-  outline: none;
-  background: #fff;
+.resolved-icon {
+  color: var(--status-success-text);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.unresolved-icon {
+  color: var(--status-danger-text);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  background: var(--color-muted-bg);
+}
+
+@media (max-width: 768px) {
+  .header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container {
+    justify-content: flex-end;
+  }
+
+  .reports-table thead {
+    display: none;
+  }
+
+  .reports-table tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 8px 10px;
+  }
+
+  .reports-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    padding: 8px 0;
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  .reports-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-muted);
+    min-width: 42%;
+  }
 }
 </style>

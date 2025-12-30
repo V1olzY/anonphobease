@@ -57,7 +57,16 @@ public class DataSeeder implements CommandLineRunner {
         // Users
         User user1 = userRepository.save(User.builder()
                 .id(new ObjectId())
-                .username("testuser1")
+                .username("user1")
+                .password(null)
+                .roleId(userRole.getId())
+                .isActive(false)
+                .createdAt(new Date())
+                .build());
+
+        User user2 = userRepository.save(User.builder()
+                .id(new ObjectId())
+                .username("user2")
                 .password(null)
                 .roleId(userRole.getId())
                 .isActive(false)
@@ -91,51 +100,7 @@ public class DataSeeder implements CommandLineRunner {
         // Message
         Message msg = messageRepository.save(new Message(new ObjectId(), user1.getId(), chat.getId(), "Hello! Anyone else afraid of spiders?", new Date()));
 
-        // Report
-        Report report = reportRepository.save(new Report(
-                new ObjectId(),
-                chat.getId(),
-                user1.getId(),
-                mod.getId(),
-                msg.getId(),
-                "Spamming",
-                false,
-                new Date(),
-                null,
-                mod.getId(),
-                ActionType.PENDING,
-                null
-        ));
-
-        Report report2 = reportRepository.save(new Report(
-                new ObjectId(),
-                chat.getId(),
-                user1.getId(),
-                mod.getId(),
-                msg.getId(),
-                "Insulting other users",
-                false,
-                new Date(),
-                null,
-                mod.getId(),
-                ActionType.PENDING,
-                null
-        ));
-
-        // Ban
-        Ban ban = banRepository.save(new Ban(
-                new ObjectId(),
-                user1.getId(),
-                chat.getId(),
-                mod.getId(),
-                msg.getId(),
-                "Inappropriate content",
-                new Date()
-        ));
-
-
         // UserLog
         userLogRepository.save(new UserLog(new ObjectId(), user1.getId(), LogType.USER_LOGIN, new Date(), LogType.USER_LOGIN.getTemplate(), null, RelatedEntityType.USER));
-        userLogRepository.save(new UserLog(new ObjectId(), user1.getId(), LogType.REPORT_SENT, new Date(), LogType.REPORT_SENT.getTemplate(), report.getId(), RelatedEntityType.REPORT));
     }
 }

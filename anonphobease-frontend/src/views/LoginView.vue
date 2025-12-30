@@ -20,7 +20,12 @@
         ref="passwordInput"
       />
 
-            <RecaptchaV2 @load-callback="onCaptchaVerified" />
+      <RecaptchaV2
+        class="recaptcha"
+        ref="recaptchaRef"
+        @siteKey="SITE_KEY"
+        @verify="onCaptchaVerified"
+      />
 
       <button @click="handleLogin">{{ $t("login.button") }}</button>
 
@@ -46,6 +51,7 @@ const recaptchaRef = ref();
 const authStore = useAuthStore();
 const router = useRouter();
 const { t } = useI18n();
+const SITE_KEY = ref(process.env.VUE_APP_RECAPTCHA_SITE_KEY || ""); // set in env
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 
@@ -74,15 +80,15 @@ async function checkUsername() {
 
 async function handleLogin() {
   if (!username.value.trim()) return;
-  // if (!captchaToken.value) {
-  //   error.value = "Please validate that you are not a robot.";
-  //   return;
-  // }
+  if (!captchaToken.value) {
+    error.value = "Please validate that you are not a robot.";
+    return;
+  }
 
   try {
     const params: any = {
       username: username.value,
-      // captcha: captchaToken.value,
+      captcha: captchaToken.value,
     };
 
     if (requiresPassword.value) {
@@ -132,7 +138,7 @@ async function handleLogin() {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 60px);
-  background-color: #f5f5f5;
+  background-color: var(--color-bg);
 }
 
 .login-box {
@@ -151,14 +157,14 @@ async function handleLogin() {
   padding: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 5px;
 }
 
 .login-box button {
   width: 100%;
   padding: 0.6rem;
-  background-color: #007bff;
+  background-color: var(--color-primary);
   color: white;
   font-weight: bold;
   border: none;
@@ -167,7 +173,11 @@ async function handleLogin() {
 }
 
 .login-box button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
+}
+
+.recaptcha {
+  padding-bottom: 2rem;
 }
 
 .error-text {

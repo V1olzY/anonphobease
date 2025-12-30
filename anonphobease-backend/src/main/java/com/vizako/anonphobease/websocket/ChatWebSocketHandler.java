@@ -58,7 +58,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
                 .computeIfAbsent(chatId, key -> ConcurrentHashMap.newKeySet())
                 .add(session);
 
-        System.out.println("🔌 Connected: " + session.getId() + " to chat " + chatId);
     }
 
     @Override
@@ -94,7 +93,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         MessageDTO dto = objectMapper.treeToValue(json, MessageDTO.class);
 
         String languageCode = chatService.getLanguageCodeByChatId(chatId);
-        System.out.println("[WS] chatId=" + chatId + ", languageCode=" + languageCode);
 
         String originalText = dto.getContent();
         String filteredText = messageFilterService.filter(originalText, languageCode);
@@ -114,7 +112,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             }
         }
 
-        System.out.println("✅ Message saved and broadcasted: " + response);
     }
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
@@ -129,7 +126,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         Set<WebSocketSession> sessions = chatSessions.get(chatId);
         if (sessions != null) {
             sessions.remove(session);
-            System.out.println("❌ Disconnected: " + session.getId() + " from chat " + chatId);
             if (sessions.isEmpty()) {
                 chatSessions.remove(chatId);
             }

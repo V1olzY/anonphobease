@@ -16,7 +16,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +40,36 @@ public class ChatService {
     }
 
     public List<ChatDTO> findAll() {
-        return chatRepository.findAll()
-            .stream()
-            .map(ChatMapper::toDTO)
-            .toList();
+
+        List<Chat> chats = chatRepository.findAll();
+
+        List<LanguageDTO> allLanguages = languageService.findAll();
+        List<PhobiaDTO> allPhobias = phobiaService.findAll();
+
+        Map<String, LanguageDTO> languagesById = allLanguages.stream()
+                .collect(Collectors.toMap(LanguageDTO::getId, Function.identity()));
+
+        Map<String, PhobiaDTO> phobiasById = allPhobias.stream()
+                .collect(Collectors.toMap(PhobiaDTO::getId, Function.identity()));
+
+        return chats.stream()
+                .map(chat -> {
+                    ChatDTO dto = ChatMapper.toDTO(chat);
+
+                    LanguageDTO lang = languagesById.get(dto.getLanguageId());
+                    if (lang != null) {
+                        dto.setLanguageName(lang.getName());
+                        dto.setLanguageCode(lang.getCode());
+                    }
+
+                    PhobiaDTO phobia = phobiasById.get(dto.getPhobiaId());
+                    if (phobia != null) {
+                        dto.setPhobiaName(phobia.getName());
+                    }
+
+                    return dto;
+                })
+                .toList();
     }
 
     public ChatsResponseDTO getAllChatsWithFilters() {

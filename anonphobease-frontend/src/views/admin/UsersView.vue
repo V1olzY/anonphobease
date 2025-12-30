@@ -5,7 +5,7 @@
       <button @click="openModal(null)">{{ $t("common.add_new") }}</button>
     </div>
 
-    <table class="table">
+    <table class="table users-table">
       <thead>
         <tr>
           <th>{{ $t("users.username") }}</th>
@@ -17,12 +17,30 @@
       </thead>
       <tbody>
         <tr v-for="user in users" :key="user.id" @click="openModal(user)">
-          <td>{{ user.username }}</td>
-          <td>{{ user.role.name }}</td>
-          <td>{{ user.isActive ? "✔" : "✘" }}</td>
-          <td>{{ new Date(user.createdAt).toLocaleDateString() }}</td>
-          <td @click.stop>
-            <button @click="deleteUser(user.id)">❌</button>
+          <td :data-label="$t('users.username')">
+            <span class="cell-value">{{ user.username }}</span>
+          </td>
+
+          <td :data-label="$t('users.role')">
+            <span class="cell-value">{{ user.role.name }}</span>
+          </td>
+
+          <td :data-label="$t('users.is_active')">
+            <span class="cell-value">{{ user.isActive ? "✔" : "✘" }}</span>
+          </td>
+
+          <td :data-label="$t('users.created_at')">
+            <span class="cell-value">{{
+              new Date(user.createdAt).toLocaleDateString()
+            }}</span>
+          </td>
+
+          <td
+            :data-label="$t('common.actions')"
+            class="actions-cell"
+            @click.stop
+          >
+            <button class="icon-button" @click="deleteUser(user.id)">❌</button>
           </td>
         </tr>
       </tbody>
@@ -146,25 +164,45 @@ async function deleteUser(id: string) {
 .admin-page {
   padding: 2rem;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.table {
-  width: 100%;
-  border-collapse: collapse;
+
+@media (max-width: 768px) {
+  .users-table thead {
+    display: none;
+  }
+
+  .users-table tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 8px 10px;
+  }
+
+  .users-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    padding: 8px 0;
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  .users-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-muted);
+    min-width: 42%;
+  }
 }
-.table th,
-.table td {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-.table tr:hover {
-  background-color: #f2f2f2;
-  cursor: pointer;
-}
+
 .modal {
   position: fixed;
   top: 0;
@@ -176,6 +214,7 @@ async function deleteUser(id: string) {
   align-items: center;
   justify-content: center;
 }
+
 .modal-content {
   background: white;
   padding: 2rem;
@@ -185,6 +224,7 @@ async function deleteUser(id: string) {
   flex-direction: column;
   gap: 1rem;
 }
+
 .modal-actions {
   display: flex;
   justify-content: space-between;

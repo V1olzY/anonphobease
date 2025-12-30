@@ -73,24 +73,54 @@ public class InitialDataSeeder implements CommandLineRunner {
                             "Fear of spiders."),
                     new Phobia(new ObjectId(), "OPHIDIOPHOBIA",
                             "Fear of snakes."),
+                    new Phobia(new ObjectId(), "CYNOPHOBIA",
+                            "Fear of dogs."),
                     new Phobia(new ObjectId(), "AEROPHOBIA",
                             "Fear of flying."),
-                    new Phobia(new ObjectId(), "TRYPOPHOBIA",
-                            "Discomfort or fear triggered by clusters of small holes or patterns."),
+                    new Phobia(new ObjectId(), "TRYPANOPHOBIA",
+                            "Fear of needles or injections."),
+                    new Phobia(new ObjectId(), "DENTOPHOBIA",
+                            "Fear of dentists or dental procedures."),
+                    new Phobia(new ObjectId(), "NOSOCOMEPHOBIA",
+                            "Fear of hospitals."),
+                    new Phobia(new ObjectId(), "TOMOPHOBIA",
+                            "Fear of surgery or invasive medical procedures."),
                     new Phobia(new ObjectId(), "MYSOPHOBIA",
                             "Fear of germs, dirt or contamination."),
                     new Phobia(new ObjectId(), "HEMOPHOBIA",
                             "Fear of blood."),
-                    new Phobia(new ObjectId(), "CARCINOPHOBIA",
-                            "Fear of cancer."),
-                    new Phobia(new ObjectId(), "THANATOPHOBIA",
-                            "Fear of death or dying."),
                     new Phobia(new ObjectId(), "EMETOPHOBIA",
                             "Fear of vomiting."),
+                    new Phobia(new ObjectId(), "THANATOPHOBIA",
+                            "Fear of death or dying."),
+                    new Phobia(new ObjectId(), "CARCINOPHOBIA",
+                            "Fear of cancer."),
                     new Phobia(new ObjectId(), "NYCTOPHOBIA",
                             "Fear of the dark."),
                     new Phobia(new ObjectId(), "GLOSSOPHOBIA",
-                            "Fear of public speaking.")
+                            "Fear of public speaking."),
+                    new Phobia(new ObjectId(), "ASTRAPHOBIA",
+                            "Fear of thunder and lightning."),
+                    new Phobia(new ObjectId(), "AQUAPHOBIA",
+                            "Fear of water."),
+                    new Phobia(new ObjectId(), "THALASSOPHOBIA",
+                            "Fear of deep bodies of water or the ocean."),
+                    new Phobia(new ObjectId(), "PYROPHOBIA",
+                            "Fear of fire."),
+                    new Phobia(new ObjectId(), "COULROPHOBIA",
+                            "Fear of clowns."),
+                    new Phobia(new ObjectId(), "AUTOPHOBIA",
+                            "Fear of being alone."),
+                    new Phobia(new ObjectId(), "TOKOPHOBIA",
+                            "Fear of pregnancy or childbirth."),
+                    new Phobia(new ObjectId(), "ENTOMOPHOBIA",
+                            "Fear of insects."),
+                    new Phobia(new ObjectId(), "MUSOPHOBIA",
+                            "Fear of mice or rats."),
+                    new Phobia(new ObjectId(), "ORNITHOPHOBIA",
+                            "Fear of birds."),
+                    new Phobia(new ObjectId(), "TRYPOPHOBIA",
+                            "Discomfort or fear triggered by clusters of small holes or patterns.")
             ));
         }
 
@@ -126,7 +156,7 @@ public class InitialDataSeeder implements CommandLineRunner {
                             .username(adminUsername)
                             .password(encoded)
                             .roleId(adminRole.getId())
-                            .isActive(true)
+                            .isActive(false)
                             .createdAt(new Date())
                             .build();
                     return userRepository.save(admin);

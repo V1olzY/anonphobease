@@ -163,7 +163,7 @@ onMounted(() => {
   socket = new WebSocket(socketUrl);
 
   socket.onopen = () => {
-    console.log("✅ WebSocket connected to", socketUrl);
+    console.log("✅ WebSocket connected");
   };
 
   socket.onmessage = (event) => {
@@ -211,11 +211,8 @@ onUnmounted(() => {
 <style scoped>
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,17 +220,17 @@ onUnmounted(() => {
 }
 
 .modal-content {
-  background: white;
+  background: var(--color-surface);
   padding: 20px;
   border-radius: 12px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 420px;
+  width: 92%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   box-sizing: border-box;
 }
 
 .modal-content h3 {
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
   font-size: 1.2rem;
 }
 
@@ -241,8 +238,8 @@ onUnmounted(() => {
   width: 100%;
   padding: 10px;
   font-size: 0.95rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
   resize: none;
   box-sizing: border-box;
 }
@@ -256,44 +253,61 @@ onUnmounted(() => {
 
 .cancel-button,
 .submit-button {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .cancel-button {
-  background-color: #eee;
+  background: var(--btn-neutral-bg);
+  color: var(--btn-neutral-text);
+}
+
+.cancel-button:hover {
+  background: var(--btn-neutral-bg-hover);
 }
 
 .submit-button {
-  background-color: #4caf50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+  background: var(--btn-primary-bg-hover);
+}
+
+.chat-view {
+  width: 100%;
 }
 
 .chat-box {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 95%;
-  margin: 25px auto;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+
+  width: min(95%, 900px);
+  margin: 16px auto;
   padding: 10px;
+
   display: flex;
   flex-direction: column;
-  height: 80vh;
+
+  height: calc(100dvh - 110px);
   box-sizing: border-box;
 }
 
 .chat-messages {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
@@ -311,91 +325,91 @@ onUnmounted(() => {
 }
 
 .chat-input {
+  flex: 0 0 auto;
+
+  position: sticky;
+  bottom: 0;
+
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+
   display: flex;
   gap: 10px;
+  padding-top: 10px;
   margin-top: 10px;
+  box-sizing: border-box;
 }
 
 .chat-input-field {
   flex: 1;
+
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
   font-size: 1rem;
-  resize: none;
-  min-height: 2.5rem;
-  max-height: 8rem;
-  overflow-y: auto;
   line-height: 1.4;
+
+  resize: none;
+
+  min-height: 48px;
+  max-height: 140px;
+  overflow-y: auto;
+
+  box-sizing: border-box;
 }
 
 .send-button {
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #4caf50;
-  color: white;
+  flex: 0 0 auto;
+  padding: 10px 18px;
+
+  font-weight: 700;
+  background: var(--color-primary);
+  color: #fff;
+
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .send-button:hover {
-  background-color: #45a049;
+  background: var(--color-primary-hover);
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .chat-banned-notice {
   width: 100%;
-  border: 1px solid #e53935;
-  background: rgba(229, 57, 53, 0.06);
-  color: #b71c1c;
+  border: 1px solid var(--status-danger-text);
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 0.9rem;
   margin-bottom: 6px;
-}
-
-@media (max-width: 480px) {
-  .chat-box {
-    padding: 6px;
-    height: 90vh;
-  }
-
-  .chat-input {
-    flex-direction: column;
-  }
-
-  .chat-input-field {
-    width: 100%;
-  }
-
-  .send-button {
-    width: 100%;
-  }
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .chat-box {
-    height: 90vh;
-    padding: 6px;
-    border-radius: 6px;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    height: calc(100dvh - 80px);
   }
+}
 
+@media (max-width: 480px) {
   .chat-input {
     flex-direction: column;
     align-items: stretch;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
   }
 
   .send-button {
     width: 100%;
-    font-size: 1rem;
-  }
-
-  .chat-input-field {
-    font-size: 1rem;
-  }
-
-  .message-card {
-    max-width: 90%;
   }
 }
 </style>

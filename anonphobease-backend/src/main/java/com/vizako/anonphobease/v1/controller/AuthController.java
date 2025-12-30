@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
-                if (!captchaService.verifyToken(request.getCaptcha())) {
+       if (!captchaService.verifyToken(request.getCaptcha())) {
             return ResponseEntity.badRequest().body("Captcha verification failed");
         }
         try {

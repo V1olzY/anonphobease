@@ -1,0 +1,80 @@
+.btn,
+button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: var(--btn-radius);
+
+  font: inherit;
+  font-weight: var(--btn-font-weight);
+  cursor: pointer;
+
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:active,
+button:active {
+  transform: translateY(1px);
+}
+
+.btn:hover,
+button:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+
+.btn:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.22);
+}
+
+.btn--primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: transparent;
+}
+.btn--primary:hover {
+  background: var(--btn-primary-bg-hover);
+}
+
+.btn--danger {
+  background: var(--btn-danger-bg);
+  color: var(--btn-danger-text);
+  border-color: transparent;
+}
+.btn--danger:hover {
+  background: var(--btn-danger-bg-hover);
+}
+
+.btn--neutral {
+  background: var(--btn-neutral-bg);
+  color: var(--btn-neutral-text);
+  border-color: transparent;
+}
+.btn--neutral:hover {
+  background: var(--btn-neutral-bg-hover);
+}
+
+.icon-button,
+.btn--icon {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+.icon-button:hover,
+.btn--icon:hover {
+  background: rgba(17, 24, 39, 0.06) !important;
+}

@@ -144,15 +144,31 @@
     "CLAUSTROPHOBIA": "Claustrophobia",
     "ARACHNOPHOBIA": "Arachnophobia",
     "OPHIDIOPHOBIA": "Ophidiophobia (fear of snakes)",
+    "CYNOPHOBIA": "Cynophobia (fear of dogs)",
     "AEROPHOBIA": "Aerophobia (fear of flying)",
-    "TRYPOPHOBIA": "Trypophobia",
+    "TRYPANOPHOBIA": "Trypanophobia (fear of needles)",
+    "DENTOPHOBIA": "Dentophobia (fear of dentists)",
+    "NOSOCOMEPHOBIA": "Nosocomephobia (fear of hospitals)",
+    "TOMOPHOBIA": "Tomophobia (fear of surgery)",
     "MYSOPHOBIA": "Mysophobia (fear of germs)",
     "HEMOPHOBIA": "Hemophobia (fear of blood)",
-    "CARCINOPHOBIA": "Carcinophobia (fear of cancer)",
-    "THANATOPHOBIA": "Thanatophobia (fear of death)",
     "EMETOPHOBIA": "Emetophobia (fear of vomiting)",
+    "THANATOPHOBIA": "Thanatophobia (fear of death)",
+    "CARCINOPHOBIA": "Carcinophobia (fear of cancer)",
     "NYCTOPHOBIA": "Nyctophobia (fear of the dark)",
-    "GLOSSOPHOBIA": "Glossophobia (fear of public speaking)"
+    "GLOSSOPHOBIA": "Glossophobia (fear of public speaking)",
+    "ASTRAPHOBIA": "Astraphobia (fear of thunder and lightning)",
+    "AQUAPHOBIA": "Aquaphobia (fear of water)",
+    "THALASSOPHOBIA": "Thalassophobia (fear of the ocean / deep water)",
+    "PYROPHOBIA": "Pyrophobia (fear of fire)",
+    "COULROPHOBIA": "Coulrophobia (fear of clowns)",
+    "AUTOPHOBIA": "Autophobia (fear of being alone)",
+    "TOKOPHOBIA": "Tokophobia (fear of pregnancy or childbirth)",
+    "ENTOMOPHOBIA": "Entomophobia (fear of insects)",
+    "MUSOPHOBIA": "Musophobia (fear of mice or rats)",
+    "ORNITHOPHOBIA": "Ornithophobia (fear of birds)",
+    "TRYPOPHOBIA": "Trypophobia"
   }
+
 
 }

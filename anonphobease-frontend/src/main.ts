@@ -6,6 +6,10 @@ import i18n from "./i18n";
 import App from "./App.vue";
 import router from "./router";
 import { install } from "vue3-recaptcha-v2";
+import "@/styles/forms.scss";
+import "@/styles/theme.scss";
+import "@/styles/buttons.scss";
+import "@/styles/tables.scss";
 
 const pinia = createPinia();
 pinia.use(piniaPersistedstate);
@@ -20,7 +24,7 @@ app.use(pinia);
 app.use(router);
 app.use(i18n);
 app.use(install, {
-  sitekey: "6LdGXSUrAAAAAF0dhdl9zZDfFL0dBiA_V1bh4Qr7",
+  sitekey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
   cnDomains: false,
 });
 const authStore = useAuthStore();

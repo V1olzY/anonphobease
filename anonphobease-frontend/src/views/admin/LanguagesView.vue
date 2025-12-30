@@ -1,14 +1,13 @@
 <template>
   <div class="admin-page">
     <div class="header">
-      <h2>{{ $t("pages.languages") }}</h2>
+      <h2>{{ $t("languages.page") }}</h2>
       <button @click="openModal()">{{ $t("common.add_new") }}</button>
     </div>
 
-    <table>
+    <table class="table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>{{ $t("languages.page") }}</th>
           <th>{{ $t("languages.code") }}</th>
           <th>{{ $t("common.actions") }}</th>
@@ -21,11 +20,15 @@
           @click="openModal(language)"
           class="clickable-row"
         >
-          <td>{{ language.id }}</td>
           <td>{{ language.name }}</td>
           <td>{{ language.code }}</td>
           <td>
-            <button @click.stop="deleteLanguage(language.id)">❌</button>
+            <button
+              class="icon-button"
+              @click.stop="deleteLanguage(language.id)"
+            >
+              ❌
+            </button>
           </td>
         </tr>
       </tbody>
@@ -33,7 +36,9 @@
 
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
-        <h3>{{ editingLanguage ? $t("common.edit") : $t("common.add") }}</h3>
+        <h3>
+          {{ editingLanguage ? $t("common.edit") : $t("common.add_new") }}
+        </h3>
 
         <label>{{ $t("languages.name") }}</label>
         <input v-model="languageName" />
@@ -113,15 +118,7 @@ onMounted(fetchLanguages);
   align-items: center;
   margin-bottom: 1rem;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
+
 .clickable-row {
   cursor: pointer;
   transition: background 0.2s;
@@ -148,7 +145,7 @@ td {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Добавляет отступ между элементами */
+  gap: 1rem;
   align-items: stretch;
 }
 

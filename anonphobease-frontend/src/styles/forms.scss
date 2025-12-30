@@ -1,0 +1,42 @@
+select,
+input,
+textarea {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.18);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-muted);
+}
+
+button.icon-button {
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 8px;
+  color: inherit;
+}
+
+button.icon-button:hover {
+  background: rgba(17, 24, 39, 0.06);
+}
+
+button.icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.22);
+}

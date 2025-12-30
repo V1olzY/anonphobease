@@ -62,6 +62,8 @@
       </div>
 
       <div class="actions">
+        <button @click="goToChat(report.chatId)">🔗</button>
+
         <button @click="banUser">{{ $t("reports.action_ban") }}</button>
         <button @click="noViolation">
           {{ $t("reports.action_no_violation") }}
@@ -76,6 +78,7 @@ import { computed, ref } from "vue";
 import type { Report } from "@/types/Report";
 import { formatDate } from "@/utils/date";
 import { ActionType } from "@/types/ActionType";
+import router from "@/router";
 
 const props = defineProps<{ report: Report; initialActionReason: string }>();
 const actionReason = ref(props.initialActionReason);
@@ -112,6 +115,10 @@ function banUser() {
 }
 function noViolation() {
   emit("noViolation", { actionReason: actionReason.value });
+}
+
+function goToChat(id: string) {
+  router.push(`/chats/${id}`);
 }
 </script>
 
@@ -175,22 +182,24 @@ function noViolation() {
   padding: 0.5rem 1.2rem;
   border-radius: 5px;
   border: none;
-  background: #1976d2;
+  background: var(--color-primary);
   color: #fff;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
 }
 .actions button:last-child {
-  background: #bdbdbd;
-  color: #333;
-}
-.actions button:hover {
-  background: #1565c0;
+  background: var(--color-neutral-btn);
+  color: var(--color-neutral-text);
 }
 .actions button:last-child:hover {
-  background: #9e9e9e;
+  background: var(--color-neutral-btn-hover);
 }
+
+.actions button:hover {
+  background: var(--color-primary-hover);
+}
+
 .badge {
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
@@ -205,31 +214,31 @@ function noViolation() {
 }
 
 .resolved {
-  background: #c8e6c9;
-  color: #388e3c;
+  background: var(--status-success-bg);
+  color: var(--status-success-text);
 }
 .unresolved {
-  background: #ffcdd2;
-  color: #d32f2f;
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
 }
 
 .pending {
-  background: #fff3cd;
-  color: #856404;
+  background: var(--status-warning-bg);
+  color: var(--status-warning-text);
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-weight: 600;
 }
 .banned {
-  background: #ffcdd2;
-  color: #d32f2f;
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-weight: 600;
 }
 .no-violation {
-  background: #bbdefb;
-  color: #1976d2;
+  background: var(--status-info-bg);
+  color: var(--status-info-text);
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-weight: 600;

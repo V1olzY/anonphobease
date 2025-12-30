@@ -5,7 +5,7 @@
       <button @click="openModal(null)">{{ $t("common.add_new") }}</button>
     </div>
 
-    <table class="roles-table">
+    <table class="table">
       <thead>
         <tr>
           <th>{{ $t("roles.name") }}</th>
@@ -16,13 +16,14 @@
         <tr v-for="role in roles" :key="role.id" @click="openModal(role)">
           <td>{{ role.name }}</td>
           <td>
-            <button @click.stop="deleteRole(role.id)">✖</button>
+            <button class="icon-button" @click.stop="deleteRole(role.id)">
+              ❌
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <!-- Модальное окно -->
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
         <h3>{{ editingRole ? $t("common.edit") : $t("common.add_new") }}</h3>
@@ -42,7 +43,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "@/api/axiosInstance";
-import type { Role } from "@/types/Role"; // поправь путь, если другой
+import type { Role } from "@/types/Role";
 
 const roles = ref<Role[]>([]);
 const showModal = ref(false);
@@ -97,19 +98,7 @@ onMounted(fetchRoles);
   align-items: center;
   margin-bottom: 1rem;
 }
-.roles-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.roles-table th,
-.roles-table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
-.roles-table tr:hover {
-  background: #f0f0f0;
-  cursor: pointer;
-}
+
 .modal {
   position: fixed;
   top: 0;

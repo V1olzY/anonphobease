@@ -134,7 +134,7 @@ defineEmits<{
 }
 
 .btn-danger {
-  background: #c0392b;
+  background: var(--color-danger);
   color: #fff;
 }
 </style>
