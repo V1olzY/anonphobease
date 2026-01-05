@@ -22,9 +22,11 @@
 
       <RecaptchaV2
         class="recaptcha"
-        ref="recaptchaRef"
-        @siteKey="SITE_KEY"
-        @verify="onCaptchaVerified"
+        :sitekey="SITE_KEY"
+        @widget-id="onWidgetId"
+        @load-callback="onCaptchaVerified"
+        @expired-callback="onCaptchaExpired"
+        @error-callback="onCaptchaError"
       />
 
       <button @click="handleLogin">{{ $t("login.button") }}</button>
@@ -35,23 +37,27 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick } from "vue";
 import axios from "@/api/axiosInstance";
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { RecaptchaV2 } from "vue3-recaptcha-v2";
+import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
 
 const username = ref("");
 const password = ref("");
 const requiresPassword = ref(false);
 const error = ref("");
+
+const SITE_KEY = ref(process.env.VUE_APP_RECAPTCHA_SITE_KEY || "");
 const captchaToken = ref("");
-const recaptchaRef = ref();
+
+const widgetId = ref<number | null>(null);
+const { handleReset } = useRecaptcha();
+
 const authStore = useAuthStore();
 const router = useRouter();
 const { t } = useI18n();
-const SITE_KEY = ref(process.env.VUE_APP_RECAPTCHA_SITE_KEY || ""); // set in env
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 
@@ -62,12 +68,27 @@ watch(requiresPassword, async (val) => {
   }
 });
 
-function onCaptchaVerified(token: string) {
-  captchaToken.value = token;
+function onWidgetId(id: number) {
+  widgetId.value = id;
+}
+
+function onCaptchaVerified(token: unknown) {
+  captchaToken.value = String(token || "");
+  error.value = "";
+}
+
+function onCaptchaExpired() {
+  captchaToken.value = "";
+}
+
+function onCaptchaError() {
+  captchaToken.value = "";
+  error.value = "Captcha error. Please try again.";
 }
 
 async function checkUsername() {
   if (!username.value.trim()) return;
+
   try {
     const res = await axios.get("/v1/auth/check", {
       params: { nickname: username.value },
@@ -79,7 +100,10 @@ async function checkUsername() {
 }
 
 async function handleLogin() {
+  error.value = "";
+
   if (!username.value.trim()) return;
+
   if (!captchaToken.value) {
     error.value = "Please validate that you are not a robot.";
     return;
@@ -100,6 +124,7 @@ async function handleLogin() {
     }
 
     const res = await axios.post("/v1/auth/login", params);
+
     const {
       token,
       username: uname,
@@ -127,7 +152,10 @@ async function handleLogin() {
   } catch (err: any) {
     error.value = err.response?.data || t("login.error");
   } finally {
-    recaptchaRef.value?.reset();
+    if (widgetId.value !== null) {
+      handleReset(widgetId.value);
+    }
+    captchaToken.value = "";
   }
 }
 </script>
